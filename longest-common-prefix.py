@@ -22,22 +22,3 @@ class Solution(object):
             if end: return strs[0][:index-1]
 
         return strs[0]
-
-solution = Solution()
-
-inputs = [
-    ["flower","flow","flight"],
-    ["dog","racecar","car"],
-    ["me", "mine"],
-    ["work"],
-    ["work", ""],
-    ["",""],
-    ["", "fan"],
-    ["ab", "a"],
-    ["a", "ab"]
-]
-
-if __name__ == "__main__":
-    for _input in inputs:
-        print(solution.longestCommonPrefix(_input))
-        
