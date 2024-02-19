@@ -5,17 +5,10 @@ class Solution(object):
         :type target: List[int]
         :rtype: bool
         """
-
-        ## get the distance between pacman and the food
-        pacman_distance = abs(target[0]) + abs(target[1])
         
-        ## get the manhattan distance between each ghost and the target
-        distances = []
-
+        ## check if ghosts are closer to goal using manhattain distance
+        ## abs(target[0]) + abs(target[1]) = pacman manhattan distance from goal
         for x,y in ghosts:
-            distances.append(abs(x-target[0]) + abs(y-target[1]))
-
-        for distance in distances:
-            if distance <= pacman_distance: return False
+            if abs(x-target[0]) + abs(y-target[1]) <= abs(target[0]) + abs(target[1]): return False
         
         return True
