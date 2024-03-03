@@ -6,17 +6,20 @@ class Solution(object):
         :rtype: int
         """
 
-        ar = list(range(1,n+1))
+        eliminated = set()
+        i = 0
+        j = k
+        while(len(eliminated) < n-1):
+            if i not in eliminated:
+                j -= 1
 
-        k_count = 1
-        while(len(ar) > 1):
-            if k_count != k:
-                ar.append(ar[0])
-                k_count += 1
-            else: k_count = 1
+            if j <= 0:
+                eliminated.add(i)
+                j = k
 
-            ar.pop(0)
-            # print(ar)
+            i = (i+1)%n
 
 
-        return ar[0]
+        for m in range(n):
+            if m not in eliminated:
+                return m+1
