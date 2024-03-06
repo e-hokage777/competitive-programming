@@ -5,16 +5,16 @@ class Solution(object):
         :rtype: None Do not return anything, modify nums in-place instead.
         """
 
-        seeker = 0
-        placeholder = 0
+        s = 0
+        p = 0
 
-        while seeker < len(nums):
-            if(nums[seeker] != 0):
-                nums[seeker], nums[placeholder] = nums[placeholder], nums[seeker]
-                placeholder += 1
+        while s < len(nums):
+            if(nums[s] != 0):
+                nums[s], nums[p] = nums[p], nums[s]
+                p += 1
 
             
-            seeker += 1
+            s += 1
 
         return nums
         
