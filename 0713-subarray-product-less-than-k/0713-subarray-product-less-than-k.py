@@ -16,7 +16,7 @@ class Solution(object):
         while r < len(nums):
             pdt*=nums[r]
             while pdt>=k:
-                pdt/=nums[l]
+                pdt//=nums[l]
                 l+=1
 
             count+= (r-l+1)
