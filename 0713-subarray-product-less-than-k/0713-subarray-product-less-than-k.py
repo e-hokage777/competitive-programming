@@ -6,7 +6,8 @@ class Solution(object):
         :rtype: int
         """
 
-        count = 0
+        if k <= 1:
+            return 0
 
         l=0
         r=0
@@ -14,7 +15,7 @@ class Solution(object):
         count = 0
         while r < len(nums):
             pdt*=nums[r]
-            while l<=r and pdt>=k:
+            while pdt>=k:
                 pdt/=nums[l]
                 l+=1
 
