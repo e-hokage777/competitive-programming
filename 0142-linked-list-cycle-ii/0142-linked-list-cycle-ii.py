@@ -11,6 +11,9 @@ class Solution(object):
         :rtype: ListNode
         """
 
+        if not head:
+            return None
+
         tortoise = head
         hare = head
 
