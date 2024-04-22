@@ -1,3 +1,4 @@
+from collections import deque
 class Solution(object):
     def minOperations(self, logs):
         """
@@ -5,24 +6,15 @@ class Solution(object):
         :rtype: int
         """
 
-        # stack = []
+        stack = deque()
 
-        # for operation in logs:
-        #     if operation == "../":
-        #         if len(stack) > 0:
-        #             stack.pop()
-        #     elif operation != "./":
-        #         stack.append(1)
-            
-        # return len(stack)
-
-        count = 0
         for operation in logs:
             if operation == "../":
-                if count > 0:
-                    count-=1
+                if len(stack) > 0:
+                    stack.pop()
             elif operation != "./":
-                count+=1
+                stack.append(1)
             
-        return count
+        return len(stack)
+
         
