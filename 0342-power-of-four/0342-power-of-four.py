@@ -9,6 +9,8 @@ class Solution(object):
             return True
         elif n < 1:
             return False
+        elif n%4 != 0:
+            return False
 
         return (n%4 == 0) & self.isPowerOfFour(n//4)
         
