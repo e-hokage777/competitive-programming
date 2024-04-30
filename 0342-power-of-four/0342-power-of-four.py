@@ -12,5 +12,5 @@ class Solution(object):
         elif n%4 != 0:
             return False
 
-        return (n%4 == 0) & self.isPowerOfFour(n//4)
+        return self.isPowerOfFour(n//4)
         
