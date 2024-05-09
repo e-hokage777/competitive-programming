@@ -14,7 +14,7 @@ class Solution(object):
         r = n
         first_bad = 1
         while l <= r:
-            mid = (r+l)//2
+            mid = l + (r-l)//2
             is_bad = isBadVersion(mid)
             if is_bad:
                 first_bad = mid
