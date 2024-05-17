@@ -5,14 +5,11 @@ class Solution(object):
         :rtype: int
         """
 
-        stack = []
-        max_ = float("-inf")
+        min_so_far = float("inf")
+        max_ = 0
         for price in prices:
-            while stack and price < stack[-1]:
-                max_ = max(max_, stack[-1] - stack[0])
-                stack.pop()
+            min_so_far = min(min_so_far, price)
+            max_ = max(max_, price-min_so_far)
 
-            stack.append(price)
-
-        return max(max_, stack[-1] - stack[0])
+        return max_
         
