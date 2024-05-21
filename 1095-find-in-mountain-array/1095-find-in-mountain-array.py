@@ -23,8 +23,8 @@ class Solution(object):
         """
         
         ## finding peak
-        left = 0
-        right = mountain_arr.length() -1
+        left = -1
+        right = mountain_arr.length()
 
         while left < right:
             middle = left + (right-left)//2
@@ -34,7 +34,6 @@ class Solution(object):
             else:
                 left = middle + 1
 
-        print("here")
         ## search for taret in first half
         res = self.find_target(0, right, mountain_arr, target)
 
@@ -42,7 +41,7 @@ class Solution(object):
             return res
 
         ## search right target
-        res = self.find_target_reverse(right, mountain_arr.length()-1, mountain_arr, target)
+        res = self.find_target(right, mountain_arr.length()-1, mountain_arr, target)
 
         return res
 
@@ -57,21 +56,6 @@ class Solution(object):
             if value == target:
                 return middle
             elif target > value:
-                left = middle + 1
-            else:
-                right = middle - 1
-
-        return -1
-
-    def find_target_reverse(self, left, right, mountain_arr, target):
-        
-        while left <= right:
-            middle = left + (right - left)//2
-
-            value = mountain_arr.get(middle)
-            if value == target:
-                return middle
-            elif target < value:
                 left = middle + 1
             else:
                 right = middle - 1
