@@ -15,7 +15,10 @@ class Solution(object):
         if not root: return False
         def findPathSum(node, accumulation):
             if not node:
-                return accumulation == targetSum
+                return False
+            
+            if not node.left and not node.right:
+                return (accumulation+node.val) == targetSum
 
             return findPathSum(node.left, accumulation+node.val) or findPathSum(node.right, accumulation+node.val)
 
