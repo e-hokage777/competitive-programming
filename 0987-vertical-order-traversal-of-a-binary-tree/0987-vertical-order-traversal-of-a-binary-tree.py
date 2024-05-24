@@ -14,6 +14,7 @@ class Solution(object):
 
         holder = OrderedDict()
 
+
         def traverse(node, col, row):
             if not node:
                 return
@@ -26,6 +27,8 @@ class Solution(object):
             traverse(node.right, col+1, row+1)
 
         traverse(root, 0, 0)
+
+        holder = OrderedDict(sorted(holder.items(), key=lambda x: x[0]))
 
         result = []
 
