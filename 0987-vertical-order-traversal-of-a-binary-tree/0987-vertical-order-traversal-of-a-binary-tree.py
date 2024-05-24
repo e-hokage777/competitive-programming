@@ -1,3 +1,4 @@
+from collections import OrderedDict
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, val=0, left=None, right=None):
@@ -11,7 +12,8 @@ class Solution(object):
         :rtype: List[List[int]]
         """
 
-        holder = dict()
+        holder = OrderedDict()
+
 
         def traverse(node, col, row):
             if not node:
@@ -26,11 +28,11 @@ class Solution(object):
 
         traverse(root, 0, 0)
 
-        items = sorted(holder.items(), key=lambda x: x[0])
+        holder = OrderedDict(sorted(holder.items(), key=lambda x: x[0]))
 
         result = []
 
-        for _, value in items:
+        for value in holder.values():
             value.sort()
 
             result.append([item[2] for item in value])
