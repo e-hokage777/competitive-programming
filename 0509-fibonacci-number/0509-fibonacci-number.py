@@ -1,4 +1,7 @@
 class Solution(object):
+    def __init__(self):
+        self.memo = dict()
+
     def fib(self, n):
         """
         :type n: int
@@ -10,5 +13,7 @@ class Solution(object):
         if n == 1:
             return 1
 
-        return self.fib(n-1) + self.fib(n-2)
+        if n not in self.memo:
+            self.memo[n] = self.fib(n-1) + self.fib(n-2)
+        return self.memo[n]
         
