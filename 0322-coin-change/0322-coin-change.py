@@ -6,21 +6,22 @@ class Solution(object):
         :rtype: int
         """
 
-        memo = {}
+        memo = [float("inf") for _ in range(amount+1)]
         memo[0] = 0
         def dp(value):
 
-            if value not in memo:
-                memo[value] = float("inf")
+            if memo[value] == float("inf"):
                 for c in coins:
                     if c <= value:
                         memo[value] = min(memo[value], 1+dp(value-c))
 
             return memo[value]
 
+        min_coins = float("inf")
 
-        answer = dp(amount)
+        for i in range(amount+1):
+            dp(i)
 
-        return answer if answer != float("inf") else -1
+        return memo[-1] if memo[-1] != float("inf") else -1
             
         
