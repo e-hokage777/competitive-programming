@@ -6,26 +6,21 @@ class Solution(object):
         :rtype: int
         """
 
-        def dp(index, remainder):
-            if remainder == 0:
-                return 0
-
-            if remainder < 0 or index >= len(coins):
-                return float("inf")
-
-            state = (index, remainder)
-            if state not in memo:
-                include = 1 + dp(index, remainder - coins[index])
-                exclude = dp(index+1, remainder)
-
-                memo[state] = min(include, exclude)
-
-            return memo[state]
-
         memo = {}
+        memo[0] = 0
+        def dp(value):
 
-        answer = dp(0,amount)
+            if value not in memo:
+                memo[value] = float("inf")
+                for c in coins:
+                    if c <= value:
+                        memo[value] = min(memo[value], 1+dp(value-c))
 
-        return -1 if answer == float("inf") else answer
+            return memo[value]
+
+
+        answer = dp(amount)
+
+        return answer if answer != float("inf") else -1
             
         
