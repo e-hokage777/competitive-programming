@@ -5,21 +5,24 @@ class Solution(object):
         :rtype: List[List[int]]
         """
 
-        max_num = 2**len(nums)-1
         result = []
         cur = []
-        def backtrack(index, current):
-            if current == max_num:
+        self.visited = 0
+
+        def backtrack(index):
+            if index >= len(nums):
                 result.append(cur[:])
 
             for i in range(len(nums)):
-                if not current & 2**i:
+                if not (1<<i) & self.visited:
+                    self.visited |= (1<<i)
                     cur.append(nums[i])
-                    backtrack(index+1, current|2**i)
+                    backtrack(index+1)
+                    self.visited ^= (1<<i)
                     cur.pop()
 
 
-        backtrack(0, 0)
+        backtrack(0)
 
         return result
         
