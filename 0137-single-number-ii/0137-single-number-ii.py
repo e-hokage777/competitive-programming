@@ -4,15 +4,15 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-
-        switches = 0
-
-        for num in nums:
-            switches += (1<<2*num)
+        ones = 0
+        twos = 0
 
         for num in nums:
-            if switches & (1<<2*num) and not switches & (1<<(2*num+1)):
-                return num
+            twos ^= (ones & num)
+            ones ^= num
 
+            ones, twos = ~(ones & twos) & ones, ~(ones & twos) & twos
+            
+        return ones
         
         
