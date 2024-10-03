@@ -5,27 +5,30 @@ class Solution(object):
         :rtype: int
         """
 
-        if(len(nums) == 1):
-            return nums[0]
+        if(len(nums) == 1): return nums[0]
 
-        def dp(index, last_robbed, first_robbed):
-            if (first_robbed and index == len(nums)-1) or index >= len(nums):
-                # print(first_robbed, index,"here")
-                return 0
+        start_first_grid = [[0]*(len(nums)+1) for _ in range(2)]
+        start_second_grid = [[0]*(len(nums)+1) for _ in range(2)]
 
-            state = (index, last_robbed, first_robbed)
+        for i in range(2,len(nums)+1):
+            index = i-1
+            start_second_grid[0][i] = nums[index] + max(start_second_grid[1][:i])
+            start_second_grid[1][i] = max(start_second_grid[0][:i])
 
-            if state not in memo:
-                if not last_robbed:
-                    memo[state] = max(nums[index] + dp(index+1, True, first_robbed), dp(index+1,False,first_robbed))
-                else:
-                    memo[state] = dp(index+1,False,first_robbed)
-                
-            return memo[state]
+        for i in range(1,len(nums)):
+            index = i-1
+            start_first_grid[0][i] = nums[index] + max(start_first_grid[1][0:i])
+            start_first_grid[1][i] = max(start_first_grid[0][0:i])
 
-        memo = dict()
+        max1 = max(start_first_grid[0][-2], start_first_grid[1][-2])
+        max2 = max(start_second_grid[0][-1], start_second_grid[1][-1])
+
+        # print(start_first_grid, start_second_grid)
+
+        return max(max1, max2)
 
 
-        return max(dp(1, False, False), dp(0, False, True))
+
+
 
         
