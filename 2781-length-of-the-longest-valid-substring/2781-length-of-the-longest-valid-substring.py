@@ -30,10 +30,10 @@ class Trie:
         current_node.is_end = True
 
     def find(self, string):
-        if not string: return False
+        if not string: return -1
         index = 0
         if not self.root[self.index(string[0])]:
-            return False
+            return -1
 
         current_node = self.root[self.index(string[0])]
 
@@ -41,15 +41,15 @@ class Trie:
             character = string[i]
 
             if not current_node.children[self.index(character)]:
-                return False
+                return -1
             
             current_node = current_node.children[self.index(character)]
             index += 1
 
         if current_node.is_end:
-            return True
+            return index
         
-        return False
+        return -1
             
 
 
@@ -62,26 +62,35 @@ class Solution(object):
         """
 
         trie = Trie()
+        marker = [float("inf")] * len(word)
 
         for string in forbidden:
             trie.add(string)
 
-        
-        right = len(word) - 1
+        for i in range(len(word)):
+            first_letter = word[i]
+            for j in range(i, min(i+10, len(word))+1):
+                if trie.find(word[i:j]) > -1:
+                    marker[i] = min(marker[i], j-i)
+
         ans = 0
-        for left in range(len(word)-1, -1, -1):
-            valid = True
-            for i in range(left, min(left+10, right+1)):
-                if trie.find(word[left:i+1]):
-                    right = i - 1
-                    valid = False
-                    break
-            
-            if valid:    
-                ans = max(right - left + 1, ans)
+        length = 0
+        for i in range(len(marker)):
+            if marker[i] == float('inf'):
+                length += 1
+            else:
+                extra = marker[i]-1
+                for k in range(i+1,min(len(marker), i + marker[i])):
+                    if k + marker[k]-1 <= i + marker[i] - 1:
+                        extra = k-i + marker[k]-1
+                        break ## once you find the first one break
+
+                length += extra
+                ans = max(length, ans)
+                length = 0
 
 
-        return ans
+        return max(ans, length)
 
 
             
