@@ -10,17 +10,15 @@ class Solution(object):
         :type head: ListNode
         :rtype: bool
         """
-        if not head:
-            return False
 
         current = head
-        while current:
-            if not hasattr(current, "next"):
-                return True
 
-            prev = current
+        while current:
+            if current.val == None:
+                return True
+            
+            current.val = None
             current = current.next
-            del prev.next
 
         return False
         
