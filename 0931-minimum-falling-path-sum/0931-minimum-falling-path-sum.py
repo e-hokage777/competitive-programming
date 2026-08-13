@@ -5,20 +5,23 @@ class Solution(object):
         :rtype: int
         """
 
-        n = len(matrix)
 
-        for r in range(n-2, -1, -1):
-            for c in range(n):
-                min_way = float("inf")
-                current = matrix[r][c]
-                if c < n-1:
-                    min_way = min(min_way, current + matrix[r+1][c+1]) 
-                if c > 0:
-                    min_way = min(min_way, current + matrix[r+1][c-1]) 
+        for row in range(1, len(matrix)):
+            for col in range(len(matrix[0])):
+                pos1, pos2, pos3 = float("inf"), float("inf"), float("inf")
+
+                if col > 0:
+                    pos1 = matrix[row][col] + matrix[row-1][col-1]
+                if col < len(matrix[0])-1:
+                    pos2 = matrix[row][col] + matrix[row-1][col+1]
                 
-                min_way = min(min_way, current + matrix[r+1][c])
+                pos3 = matrix[row][col] + matrix[row-1][col]
 
-                matrix[r][c] = min_way
+                matrix[row][col] = min(pos1, pos2, pos3)
 
-        return min(matrix[0])
+        return min(matrix[-1])
+
+
+
+
         
