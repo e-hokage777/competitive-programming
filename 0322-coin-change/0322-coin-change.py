@@ -1,27 +1,31 @@
-class Solution(object):
-    def coinChange(self, coins, amount):
-        """
-        :type coins: List[int]
-        :type amount: int
-        :rtype: int
-        """
+from functools import cache
 
-        memo = [float("inf") for _ in range(amount+1)]
-        memo[0] = 0
-        def dp(value):
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
 
-            if memo[value] == float("inf"):
-                for c in coins:
-                    if c <= value:
-                        memo[value] = min(memo[value], 1+dp(value-c))
+        @cache
+        def min_coins(value):
+            if value < 0:
+                return float("inf")
+                
+            if value == 0:
+                return 0
 
-            return memo[value]
+            min_count = float("inf")
+            for coin in coins:
+                remainder = value - coin
+                candidate_count = min_coins(remainder) + 1
 
-        min_coins = float("inf")
+                if candidate_count < min_count:
+                    min_count = candidate_count
 
-        for i in range(amount+1):
-            dp(i)
+            return min_count
 
-        return memo[-1] if memo[-1] != float("inf") else -1
-            
+        min_count =  min_coins(amount)
+
+        if min_count == float("inf"):
+            return -1
+
+        return min_count
+
         
