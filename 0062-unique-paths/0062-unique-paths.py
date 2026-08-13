@@ -5,13 +5,32 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        
-        dp = [[0] * (n+1) for _ in range(m+1)]
-        dp[1][1] = 1
 
-        for r in range(1, m+1):
-            for c in range(1,n+1):
-                if not dp[r][c]:
-                    dp[r][c] = dp[r-1][c] + dp[r][c-1]
-            
-        return dp[-1][-1]
+        state_space = [(n) * [float("inf")] for _ in range(m)]
+
+        posx, posy = 0, 0
+
+        state_space[0][0] = 0
+
+        if m > 1:
+            state_space[posy+1][0] = 1
+        if n > 1:
+            state_space[0][posx+1] = 1
+
+        for posy in range(0, m):
+            for posx in range(0, n):
+                if state_space[posy][posx] != float("inf"):
+                    continue
+
+                if posy - 1 >= 0 and posx - 1 >= 0:
+                    state_space[posy][posx] = state_space[posy][posx-1] + state_space[posy-1][posx]
+                elif posy - 1 < 0:
+                    state_space[posy][posx] = state_space[posy][posx-1]
+                else:
+                    state_space[posy][posx] = state_space[posy-1][posx]
+
+
+        return max(state_space[m-1][n-1], 1)
+
+
+        
